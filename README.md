@@ -15,7 +15,13 @@
 - Go to Project window -> Assets -> Scenes and select 'GimbalDemoScene.unity'
 - Press the play button at the top of the Unity Editor
 
-#### How to run a built executable on Windows
+#### How to build and run an executable Unity application
+- In the Unity Editor go to File -> Build Settings
+- Under 'Platform' select 'PC, MAC & Linux Standalone'
+- Under 'PC, MAC & Linux Standalone' set the 'Target Platform' dropdown to the desired platform
+- Select the 'Build' button
+- Create a folder named 'Builds' in the local repository folder for 'Gimbal_Unity_Final'
+- Select the newly created 'Builds' folder and the project will build
 - In File Explorer open the local repository folder named 'Gimbal_Unity_Final'
 - Open the 'Builds' folder
 - Launch and run 'Gimbal Demo.exe'
