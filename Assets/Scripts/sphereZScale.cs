@@ -28,11 +28,13 @@ public class sphereZScale : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        //While mouse hovering, switch material to highlighted
         transform.GetComponent<Renderer>().material = mat1;
     }
 
     private void OnMouseExit()
     {
+        //While mouse not hovering or not dragging, switch material to original
         if (!isDragging)
         {
             transform.GetComponent<Renderer>().material = mat0;
@@ -41,6 +43,7 @@ public class sphereZScale : MonoBehaviour
 
     private void OnMouseDown()
     {
+        //Convert mouse position from screen to world space
         Vector3 mousePos = Input.mousePosition;
 
         // Find which quadrant mouse is on screen
@@ -69,21 +72,25 @@ public class sphereZScale : MonoBehaviour
 
         mousePos = myCam.ScreenToWorldPoint(mousePos);
 
+        //Store initial offset of mouse position and current gimbal position
         startZPos = mousePos.x;
         startZPos2 = mousePos.y;
         startScale = transform.parent.parent.GetChild(0).localScale;
 
+        //Let system know dragging is initiated
         isDragging = true;
     }
 
     private void OnMouseUp()
     {
+        //When no longer holding down mouse button reset isDragging and material
         isDragging = false;
         transform.GetComponent<Renderer>().material = mat0;
     }
 
     public void DragObject()
     {
+        //Convert mouse position from screen to world space
         Vector3 mousePos = Input.mousePosition;
 
         if (!myCam.orthographic)
@@ -93,8 +100,8 @@ public class sphereZScale : MonoBehaviour
 
         mousePos = myCam.ScreenToWorldPoint(mousePos);
 
+        //Specify scaling difference based on mouse position
         float scaleDelta;
-
 
         // Handle quadrant affect on scaling
         // 0 = bottom-left quad, 1 = bottom-right quad, 2 = top-left quad, 3 = top-right quad
@@ -180,6 +187,7 @@ public class sphereZScale : MonoBehaviour
             newScale.z = 0.02f;
         }
 
+        //Scale gimbal
         transform.parent.parent.GetChild(0).localScale = newScale;
     }
 }

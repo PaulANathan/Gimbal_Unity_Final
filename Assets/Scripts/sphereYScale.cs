@@ -27,11 +27,13 @@ public class sphereYScale : MonoBehaviour
 
     private void OnMouseEnter()
     {
+        //While mouse hovering, switch material to highlighted
         transform.GetComponent<Renderer>().material = mat1;
     }
 
     private void OnMouseExit()
     {
+        //While mouse not hovering or not dragging, switch material to original
         if (!isDragging)
         {
             transform.GetComponent<Renderer>().material = mat0;
@@ -40,6 +42,7 @@ public class sphereYScale : MonoBehaviour
 
     private void OnMouseDown()
     {
+        //Convert mouse position from screen to world space
         Vector3 mousePos = Input.mousePosition;
 
         if (!myCam.orthographic)
@@ -49,20 +52,24 @@ public class sphereYScale : MonoBehaviour
 
         mousePos = myCam.ScreenToWorldPoint(mousePos);
 
+        //Store initial offset of mouse position and current gimbal y position
         startYPos = mousePos.y;
         startScale = transform.parent.parent.GetChild(0).localScale;
 
+        //Let system know dragging is initiated
         isDragging = true;
     }
 
     private void OnMouseUp()
     {
+        //When no longer holding down mouse button reset isDragging and material
         isDragging = false;
         transform.GetComponent<Renderer>().material = mat0;
     }
 
     public void DragObject()
     {
+        //Convert mouse position from screen to world space
         Vector3 mousePos = Input.mousePosition;
 
         if (!myCam.orthographic)
@@ -72,6 +79,7 @@ public class sphereYScale : MonoBehaviour
 
         mousePos = myCam.ScreenToWorldPoint(mousePos);
 
+        //Specify scaling difference based on mouse position
         float scaleDelta = (mousePos.y - startYPos);
         Vector3 scaleDeltaVect;
 
@@ -134,6 +142,7 @@ public class sphereYScale : MonoBehaviour
             newScale.z = 0.02f;
         }
 
+        //Scale gimbal
         transform.parent.parent.GetChild(0).localScale = newScale;
     }
 }
